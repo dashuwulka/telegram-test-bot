@@ -1,0 +1,32 @@
+# Секретные файлы
+.env
+*.json
+service-account-key.json
+config_secret.py
+*.key
+*.pem
+
+# Python файлы
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Виртуальные окружения
+venv/
+env/
+ENV/
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# IDE файлы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Логи
+*.log

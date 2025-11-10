@@ -18,8 +18,6 @@ import time
 import re
 from datetime import datetime
 from dotenv import load_dotenv
-import threading
-from flask import Flask
 
 import telebot
 from telebot import types
@@ -40,14 +38,6 @@ if not TOKEN:
     raise RuntimeError("TELEGRAM_TOKEN не задан в .env")
 
 bot = telebot.TeleBot(TOKEN)
-
-# Flask сервер (для Render)
-# -------------------------
-app = Flask(__name__)
-
-@app.route("/")
-def home():
-    return "Bot is running!", 200
 
 # Загрузка тестов из tests/
 
@@ -601,36 +591,12 @@ def finish_test(chat_id):
     # отправляем студенту
     bot.send_message(chat_id, summary + "\n" + sheet_msg)
 
-    # уведомление администратору о новом результате убрано по просьбе (не отправляем '📄 Новый результат')
-    # если нужно — можно отправить короткое уведомление, но вы просили убрать.
-
     # удаляем состояние
     del user_states[chat_id]
 
 
-
 # Запуск бота
 
-def run_bot():
-    print("🤖 Bot starting...")
-    while True:
-        try:
-            print("🔄 Starting bot polling...")
-            bot.infinity_polling(timeout=60, long_polling_timeout=30)
-        except Exception as e:
-            print(f"❌ Bot error: {e}")
-            print("🔄 Restarting in 10 seconds...")
-            time.sleep(10)
-
 if __name__ == "__main__":
-    print("🚀 Starting Telegram Bot and Flask server...")
-    
-    # Запускаем бота в отдельном потоке
-    bot_thread = threading.Thread(target=run_bot)
-    bot_thread.daemon = True
-    bot_thread.start()
-    
-    # Запускаем Flask сервер в основном потоке
-    port = int(os.environ.get("PORT", 10000))
-    print(f"🌐 Starting Flask server on port {port}")
-    app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
+    print(" Bot running...")
+    bot.infinity_polling()

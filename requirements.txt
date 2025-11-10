@@ -1,7 +1,8 @@
-pyTelegramBotAPI==4.12.0
-gspread==5.8.0
-oauth2client==4.1.3
 python-dotenv==1.0.0
-flask==2.3.3
+pyTelegramBotAPI==4.15.2
+gspread==5.11.0
 google-auth==2.22.0
+flask==2.3.3
 requests==2.31.0
+watchdog==3.0.0
+psutil==5.9.6

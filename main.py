@@ -615,7 +615,8 @@ def run_bot():
     print("🤖 Bot starting...")
     while True:
         try:
-            bot.infinity_polling(timeout=60, long_polling_timeout=30, restart_on_change=True)
+            print("🔄 Starting bot polling...")
+            bot.infinity_polling(timeout=60, long_polling_timeout=30)
         except Exception as e:
             print(f"❌ Bot error: {e}")
             print("🔄 Restarting in 10 seconds...")
